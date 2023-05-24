@@ -4,9 +4,7 @@ from django.contrib.auth.models import User
 from blog.models import BlogData
 from django.forms import ModelForm, Textarea
 from django.core.exceptions import ValidationError
-import tomllib
-config_filepath = 'config.toml'
-
+from config.config import MyConfigClass
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=101)
@@ -27,19 +25,15 @@ class BlogForm(forms.ModelForm):
         
     
     def clean_image(self):
-        image_file = self.cleaned_data.get('image') 
-        with open(config_filepath, 'rb') as f:            
-            data = tomllib.load(f)
-            mimage_size = data.get('image_validation')['image_size']
-            image_formats = data.get('image_validation')['image_formats']
-            image_size_error = data.get('image_validation')['image_size_error']
-            image_format_error = data.get('image_validation')['image_format_error']       
+        image_file = self.cleaned_data.get('image')
+        config_setting = MyConfigClass().get_setting()
+        
         if image_file:
             extension = image_file.name.split(".")[-1]
-            if extension not in image_formats:
-                raise forms.ValidationError(image_format_error)
-            if image_file.size > mimage_size:  # 3MB                
-                raise forms.ValidationError(image_size_error)
+            if extension not in config_setting.image_formats:
+                raise forms.ValidationError(config_setting.image_format_error )
+            if image_file.size > config_setting.image_size:              
+                raise forms.ValidationError( config_setting.image_size_error)
         return image_file
     
     

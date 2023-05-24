@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
-import tomllib
+from config.config import MyConfigClass
 
 # Load the TOML file
-with open('config.toml', 'rb') as toml_file:
-    config = tomllib.load(toml_file)
+config_instance = MyConfigClass() 
+config_database = config_instance.get_database()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,12 +81,12 @@ WSGI_APPLICATION = 'Blog_Project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':config['database']['engine'],
-        'NAME':config['database']['name'],
-        'USER':config['database']['user'],
-        'PASSWORD':config['database']['password'],
-        'HOST':config['database']['host'],
-        'PORT':config['database']['port']
+        'ENGINE':config_database.engine,
+        'NAME':config_database.name,
+        'USER':config_database.user,
+        'PASSWORD':config_database.password,
+        'HOST':config_database.host,
+        'PORT':config_database.port
     }
 }
 
@@ -140,3 +140,30 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
+
+# # Logging settings
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': 'log/file.log',  # Specify the path to your log file
+#             'formatter': 'verbose',
+#         },
+#     },
+#     'formatters': {
+#         'verbose': {
+#         #     'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+#         #     'style': '{',
+#          },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             # 'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
