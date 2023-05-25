@@ -11,3 +11,7 @@ user = 'postgres'
 password = 'admin'
 host = '127.0.0.1'
 port = '5432'
+
+[newsapi]
+apikey = 'bf8802a3ab0c43609504d73616d6d5be'
+url = 'https://newsapi.org/v2/top-headlines?country=in&apiKey='

@@ -1,19 +1,14 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound,JsonResponse
-from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from requests import request
 from .forms import UserRegistrationForm
 from django.template.loader import render_to_string
 from .models import BlogData
-
-#views.py
-from django.shortcuts import render, redirect  
 from blog.forms import BlogForm  
-from blog.models import BlogData  
+from blog.logging.logging_file import setup_logger
+
 # Create your views here.  
-
-
+logger = setup_logger()
 def addnew(request): 
     if request.method == "POST": 
         form = BlogForm(request.POST or None, request.FILES or None)  
@@ -28,9 +23,11 @@ def addnew(request):
                 my_model.image = form.cleaned_data['image']
                 my_model.image_data = image_data
                 my_model.save()
+                logger.info(f"Sucess data saved")
                 # form.save()  
                 return redirect('/')  
-            except:  
+            except Exception as ex:  
+                logger.error(f"Data not saved : {ex}")
                 pass 
     else:  
         form = BlogForm() 
@@ -46,8 +43,10 @@ def edit(request, id):
     try:
         bloglist = BlogData.objects.get(id=id)  
         return render(request,'blog/edit.html', {'bloglist':bloglist}) 
-    except:
-        response_data = render_to_string("blog/404.html")
+    except Exception as ex :
+        logger.error(f"Edit page Error : {ex}")
+        response_data = render_to_string("404.html")
+        
         return HttpResponseNotFound(response_data)
 
 
