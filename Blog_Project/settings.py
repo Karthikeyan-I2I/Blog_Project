@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog',
+    'news_api'
 ]
 
 MIDDLEWARE = [
@@ -140,30 +141,3 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
-
-# # Logging settings
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'log/file.log',  # Specify the path to your log file
-#             'formatter': 'verbose',
-#         },
-#     },
-#     'formatters': {
-#         'verbose': {
-#         #     'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-#         #     'style': '{',
-#          },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             # 'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }

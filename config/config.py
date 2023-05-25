@@ -27,3 +27,11 @@ class MyConfigClass:
             self.image_size_error = config.get('image_validation')['image_size_error']
             self.image_format_error = config.get('image_validation')['image_format_error']
             return self
+    
+    
+    def get_apisetting(self):
+        with open('config/config.toml', 'rb') as toml_file:    
+            config = tomllib.load(toml_file)
+            self.apikey = config.get('newsapi')['apikey']
+            self.apiurl = config.get('newsapi')['url']
+            return self

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{%load static %}
+{% load base64_encode %}
+{%block css_files%}
+<link rel="stylesheet" href="{% static 'css/blog_home.css' %}">
+{%endblock%}
+{% block title %}Add New To_do list Records{% endblock title %}
+ 
+{% block contentnav %}
+{% include 'navbar.html' %} 
+{%endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% for i in list_data %}
+                    <div class="card rounded shadow-lg m-2" style="width: 68rem;">
+                        <img src="{{ i.urlToImage }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <p class="card-text">{{ i.author }}</p>
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        {% comment %} <p class="card-title">{{ i.source.name }}</p> {% endcomment %}
+                        <p class="card-text">{{ i.description }}</p>
+                       <hr>
+                        <small>date: {{ i.publishedAt }}</small>
+                        <a href="{{ i.url }}" target="_blank" class="btn btn-success m-1">See News</a>
+                        </div>
+                    </div>
+
+                  {% endfor %}
+            </div>
+
+            {% comment %} <div class="col-md-4">
+                <h3><b>Category</b></h3>
+                <hr>
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item"><a class="btn btn-secondary" href="{% url 'home' %}?category=technology">Technology</a></li>
+                    <li class="list-group-item"><a class="btn btn-success" href="{% url 'home' %}?category=health">Health</a></li>
+                    <li class="list-group-item"><a class="btn btn-danger" href="{% url 'home' %}?category=Entertainment">Entertainment</a></li>
+                    <li class="list-group-item"><a class="btn btn-secondary" href="{% url 'home' %}?category=Sports">Sports</a></li>
+                    <li class="list-group-item"><a class="btn btn-primary" href="{% url 'home' %}?category=Science">Science</a></li>
+                    <li class="list-group-item"><a class="btn btn-info" href="{% url 'home' %}?category=Business">Business</a></li>
+                </ul>
+            </div> {% endcomment %}
+
+        </div>
+    </div>
+    {%endblock%}

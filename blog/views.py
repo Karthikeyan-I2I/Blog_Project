@@ -45,7 +45,7 @@ def edit(request, id):
         return render(request,'blog/edit.html', {'bloglist':bloglist}) 
     except Exception as ex :
         logger.error(f"Edit page Error : {ex}")
-        response_data = render_to_string("blog/404.html")
+        response_data = render_to_string("404.html")
         
         return HttpResponseNotFound(response_data)
 
