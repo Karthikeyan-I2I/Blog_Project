@@ -6,6 +6,10 @@ from django.template.loader import render_to_string
 from .models import BlogData
 from blog.forms import BlogForm  
 from blog.logging.logging_file import setup_logger
+from django.core.mail import send_mail
+from config.config import MyConfigClass
+from django.core.mail import EmailMessage
+
 
 # Create your views here.  
 logger = setup_logger()
@@ -14,6 +18,7 @@ def addnew(request):
         form = BlogForm(request.POST or None, request.FILES or None)  
         if form.is_valid():  
             try:  
+                email_setting = MyConfigClass().email_setting()
                 image = form.cleaned_data['image']
                 image_data = image.read()
             
@@ -24,11 +29,23 @@ def addnew(request):
                 my_model.image_data = image_data
                 my_model.save()
                 logger.info(f"Sucess data saved")
-                # form.save()  
+                subject = email_setting.subject 
+                message = email_setting.message 
+                from_email = email_setting.from_email
+                recipient_list = [email_setting.recipient_list]
+
+                # send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+                # Render the email template
+                email_content = render_to_string('email_template.html', {'subject': subject, 'message': message})
+
+                # Send the email
+                email = EmailMessage(subject, email_content, to=recipient_list)
+                email.content_subtype = 'html'  # Set the content type as HTML
+                email.send() 
                 return redirect('/')  
             except Exception as ex:  
                 logger.error(f"Data not saved : {ex}")
-                pass 
+                
     else:  
         form = BlogForm() 
     return render(request,'blog/index.html',{'form':form}) 

@@ -4,7 +4,7 @@
 {%block css_files%}
 <link rel="stylesheet" href="{% static 'css/blog_home.css' %}">
 {%endblock%}
-{% block title %}Add New To_do list Records{% endblock title %}
+{% block title %}Blog Records{% endblock title %}
  
 {% block contentnav %}
 {% include 'blog/navbar.html' %} 
@@ -31,10 +31,18 @@
 			{%endif%}
 		  </p>
 		</div>
-		<div class="card-body">
+		<div class="show_fotter">
 			{% if request.user.is_authenticated %} 
-			<a href="/edit/{{ bloglist.id }}"><i class="bi bi-pen"></i>Edit</a>
+			<div>
+			<a href="/edit/{{ bloglist.id }}"><img src="{%static 'images/eidt.png'%}" height="28"  title="Edit"/></a>
+			</div>
 			{% endif %}
+			<div>
+			<img src="{%static 'images/like.png'%}" height="28"  title="Like"/>
+			</div>
+			<div>
+			<img src="{%static 'images/share.png'%}" height="28" title="Share"/>
+			</div>
 		</div>
 	</div>
 	  {% comment %} </div> {% endcomment %}

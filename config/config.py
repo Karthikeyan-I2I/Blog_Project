@@ -27,3 +27,27 @@ class MyConfigClass:
             self.image_size_error = config.get('image_validation')['image_size_error']
             self.image_format_error = config.get('image_validation')['image_format_error']
             return self
+    
+    
+    def get_api_setting(self):
+        with open('config/config.toml', 'rb') as toml_file:    
+            config = tomllib.load(toml_file)
+            self.apikey = config.get('news_api')['apikey']
+            self.apiurl = config.get('news_api')['url']
+            return self
+    
+    
+    def email_setting(self):
+        with open('config/config.toml', 'rb') as toml_file:    
+            config = tomllib.load(toml_file)
+            self.email_backend = config.get('email_setting')['email_backend']
+            self.email_host = config.get('email_setting')['email_host']
+            self.email_port = config.get('email_setting')['email_port']
+            self.email_host_user = config.get('email_setting')['email_host_user']
+            self.email_host_password = config.get('email_setting')['email_host_password']
+            self.email_use_tls = config.get('email_setting')['email_use_tls']
+            self.subject = config.get('email_setting')['subject']
+            self.message = config.get('email_setting')['message']
+            self.from_email = config.get('email_setting')['from_email']
+            self.recipient_list = config.get('email_setting')['recipient_list']
+            return self

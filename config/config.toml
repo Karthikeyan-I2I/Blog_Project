@@ -11,3 +11,19 @@ user = 'postgres'
 password = 'admin'
 host = '127.0.0.1'
 port = '5432'
+
+[news_api]
+apikey = 'bf8802a3ab0c43609504d73616d6d5be'
+url = 'https://newsapi.org/v2/top-headlines?country=in&apiKey='
+
+[email_setting]
+email_backend = 'django.core.mail.backends.smtp.EmailBackend'
+email_host = 'smtp.gmail.com'
+email_port = 587
+email_host_user = 'karthikeyan.nallamadan@ideas2it.com'
+email_host_password ='dgsnoypzzatbxale'
+subject = 'Image Upload'
+message = 'Success your image upload.'
+from_email ='karthikeyan.nallamadan@gmail.com'
+recipient_list = 'nkarthirajam@gmail.com'
+email_use_tls = 'True'
