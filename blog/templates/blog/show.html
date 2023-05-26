@@ -1,13 +1,13 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 {%load static %}
 {% load base64_encode %}
 {%block css_files%}
 <link rel="stylesheet" href="{% static 'css/blog_home.css' %}">
 {%endblock%}
-{% block title %}Blog Records{% endblock title %}
+{% block title %}Blog List Records{% endblock title %}
  
 {% block contentnav %}
-{% include 'blog/navbar.html' %} 
+{% include 'navbar.html' %} 
 {%endblock%}
 
 {% block content %}
@@ -34,14 +34,14 @@
 		<div class="show_fotter">
 			{% if request.user.is_authenticated %} 
 			<div>
-			<a href="/edit/{{ bloglist.id }}"><img src="{%static 'images/eidt.png'%}" height="28"  title="Edit"/></a>
+			<a href="/edit/{{ bloglist.id }}"><img src="{%static 'images/eidt.png'%}" height="28" title='Edit'/></a>
 			</div>
 			{% endif %}
 			<div>
-			<img src="{%static 'images/like.png'%}" height="28"  title="Like"/>
+			<img src="{%static 'images/like.png'%}" height="28" title='Like'/>
 			</div>
 			<div>
-			<img src="{%static 'images/share.png'%}" height="28" title="Share"/>
+			<img src="{%static 'images/share.png'%}" height="28" title='Share'/>
 			</div>
 		</div>
 	</div>
